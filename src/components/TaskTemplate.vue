@@ -117,4 +117,9 @@
     .button__icon {
         margin-right: 5px;
     }
+    @media only screen and (max-width: 550px) {
+        .task {
+            width: 100%;
+        }
+    }
 </style>
