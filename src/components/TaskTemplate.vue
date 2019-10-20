@@ -2,13 +2,14 @@
     <div class="task">
         <div class="task__title">{{title}}</div>
         <draggable
+                class="task__container"
                 v-bind="dragOptions"
                 :clone="clone"
                 @start="drag = true"
                 @end="drag = false">
-            <transition-group type="transition" :name="!drag ? 'flip-list' : null">
+            <transition-group type="transition" tag="div" class="task__list" :name="!drag ? 'flip-list' : null">
                 <div
-                        class="task__list"
+                        class="task__item"
                         v-for="(item, index) in taskList"
                         :key="index">
                     {{ item }}
@@ -57,8 +58,8 @@
             showModal() {
                 this.$emit('showModal', this.title);
             },
-            clone({ name }) {
-                return { name };
+            clone({name}) {
+                return {name};
             },
         },
         components: {
@@ -69,7 +70,10 @@
 
 <style scoped lang="scss">
     .task {
+        display: inline-flex;
+        flex-direction: column;
         width: calc(100% / 3 - 10px);
+        flex-grow: 2;
         margin: 5px;
         padding: 5px 10px;
         background-color: #f3f3f3;
@@ -82,7 +86,15 @@
             color: #001c37;
         }
 
+        &__container {
+            flex-grow: 1;
+        }
+
         &__list {
+            height: 100%;
+        }
+
+        &__item {
             margin-bottom: 10px;
             padding: 10px;
             cursor: move;
